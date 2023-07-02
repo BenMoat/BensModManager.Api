@@ -17,7 +17,7 @@ namespace BensModManager.Api.Services.ModService
             return mods;
         }
 
-        public async Task<Mod?> GetSingleMod(int id)
+        public async Task<Mod> GetSingleMod(int id)
         {
             var mod = await _context.Mods.FindAsync(id);
             if (mod is null)
@@ -33,7 +33,7 @@ namespace BensModManager.Api.Services.ModService
             return await _context.Mods.ToListAsync();
         }
 
-        public async Task<List<Mod>?> UpdateMod(int id, Mod request)
+        public async Task<List<Mod>> UpdateMod(int id, Mod request)
         {
             var mod = await _context.Mods.FindAsync(id);
             if (mod is null)
@@ -54,7 +54,7 @@ namespace BensModManager.Api.Services.ModService
             return await _context.Mods.ToListAsync();
         }
 
-        public async Task<List<Mod>?> DeleteMod(int id)
+        public async Task<List<Mod>> DeleteMod(int id)
         {
             var mod = await _context.Mods.FindAsync(id);
             if (mod is null)

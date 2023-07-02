@@ -18,7 +18,6 @@ builder.Services.AddDbContext<DataContext>();
 builder.Services.AddSwaggerGen(c =>
 {
     c.EnableAnnotations();
-    //c.OrderActionsBy((apiDesc) => $"{apiDesc.ActionDescriptor.RouteValues["controller"]}_{apiDesc.HttpMethod}");
 });
 
 var app = builder.Build();

@@ -9,6 +9,7 @@ namespace BensModManager.Api.Models
     public class Mod
     {
         [Key]
+        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [SwaggerSchema(ReadOnly = true)]
         public int ID { get; set; }
