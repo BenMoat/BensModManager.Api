@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Reflection;
 using System.Text.Json.Serialization;
 
 namespace BensModManager.Api.Controllers
@@ -36,6 +37,27 @@ namespace BensModManager.Api.Controllers
             return Ok(result);
         }
 
+
+        [HttpGet("{modName}")]
+        public async Task<ActionResult<IEnumerable<Mod>>> Search(string modName)
+        {
+            try
+            {
+                var result = await _modService.Search(modName);
+
+                if (result.Any())
+                {
+                    return Ok(result);
+                }
+
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database");
+            }
+        }
 
         [HttpPost]
         [Route("/mod")]

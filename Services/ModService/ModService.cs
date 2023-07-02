@@ -1,4 +1,6 @@
 ﻿using BensModManager.Api.Data;
+using System.Reflection;
+using System;
 
 namespace BensModManager.Api.Services.ModService
 {
@@ -22,8 +24,19 @@ namespace BensModManager.Api.Services.ModService
             var mod = await _context.Mods.FindAsync(id);
             if (mod is null)
                 return null;
-
             return mod;
+        }
+
+        public async Task<IEnumerable<Mod>> Search(string modName)
+        {
+            IQueryable<Mod> query = _context.Mods;
+
+            if (!string.IsNullOrEmpty(modName))
+            {
+                query = query.Where(e => e.ModName.Contains(modName));
+            }
+
+            return await query.ToListAsync();
         }
 
         public async Task<List<Mod>> AddMod(Mod mod)
