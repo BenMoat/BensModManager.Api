@@ -32,7 +32,7 @@ namespace BensModManager.Api.Services.ModService
         {
             IQueryable<Mod> query = _context.Mods;
 
-            if (!string.IsNullOrEmpty(modName))
+            if (!String.IsNullOrEmpty(modName))
             {
                 query = query.Where(e => e.ModName.Contains(modName));
             }

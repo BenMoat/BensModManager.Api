@@ -18,16 +18,14 @@ namespace BensModManager.Api.Controllers
         {
             _modService = modService;
         }
-        [HttpGet]
-        [Route("/mod/all-mods")]
+        [HttpGet("/mod/all-mods")]
         [SwaggerOperation(summary: "Gets a list of all the current mods")]
         public async Task<ActionResult<List<Mod>>> GetAllMods()
         {
             return await _modService.GetAllMods();    
         }
 
-        [HttpGet]
-        [Route("/mod/{id}")]
+        [HttpGet("/mod/{id}")]
         [SwaggerOperation(summary: "Get a mod via it's ID.")]
         public async Task<ActionResult<Mod>> GetSingleMod(int id)
         {
@@ -38,7 +36,8 @@ namespace BensModManager.Api.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet("/mod")]
+        [SwaggerOperation(summary: "Search for mods by their name, type or whether they are obsolete.")]
         public async Task<ActionResult<IEnumerable<Mod>>> Search(string modName, string modType, bool obsolete)
         {
             var result = await _modService.Search(modName, modType, obsolete);
@@ -53,8 +52,7 @@ namespace BensModManager.Api.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("/mod")]
+        [HttpPost("/mod")]
         [SwaggerOperation(summary: "Add a mod.")]
         public async Task<ActionResult<List<Mod>>> AddMod(Mod mod)
         {
@@ -62,8 +60,7 @@ namespace BensModManager.Api.Controllers
             return Ok(result);
         }
 
-        [HttpPut]
-        [Route("/mod/{id}")]
+        [HttpPut("/mod/{id}")]
         [SwaggerOperation(summary: "Update a mod via it's ID.")]
 
         public async Task<ActionResult<List<Mod>>> UpdateMod(int id, Mod request)
@@ -74,9 +71,8 @@ namespace BensModManager.Api.Controllers
             return Ok(result);
         }
 
-        [HttpDelete]
+        [HttpDelete("/mod/{id}")]
         [SwaggerOperation(summary: "Delet a mod via it's ID.")]
-        [Route("/mod/{id}")]
         public async Task<ActionResult<List<Mod>>> DeleteMod(int id)
         {
             var result = await _modService.DeleteMod(id);
