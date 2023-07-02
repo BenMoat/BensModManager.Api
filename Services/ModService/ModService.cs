@@ -1,6 +1,7 @@
 ﻿using BensModManager.Api.Data;
 using System.Reflection;
 using System;
+using BensModManager.Api.Models;
 
 namespace BensModManager.Api.Services.ModService
 {
@@ -27,13 +28,27 @@ namespace BensModManager.Api.Services.ModService
             return mod;
         }
 
-        public async Task<IEnumerable<Mod>> Search(string modName)
+        public async Task<IEnumerable<Mod>> Search(string modName, string modType, bool obsolete)
         {
             IQueryable<Mod> query = _context.Mods;
 
             if (!string.IsNullOrEmpty(modName))
             {
                 query = query.Where(e => e.ModName.Contains(modName));
+            }
+
+            if (!String.IsNullOrEmpty(modType))
+            {
+                query = query.Where(s => s.ModType.Contains(modType));
+            }
+
+            if (obsolete == true)
+            {
+                query = query.Where(s => s.Obsolete.Equals(true));
+            }
+            else
+            {
+                query = query.Where(s => s.Obsolete.Equals(false));
             }
 
             return await query.ToListAsync();

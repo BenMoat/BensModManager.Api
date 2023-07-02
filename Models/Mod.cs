@@ -14,8 +14,7 @@ namespace BensModManager.Api.Models
         [SwaggerSchema(ReadOnly = true)]
         public int ID { get; set; }
 
-        [Required]
-        public required string ModName { get; set; } 
+        public string ModName { get; set; } = string.Empty;
 
         [Required]
         [Column(TypeName = "decimal(18, 2)")]

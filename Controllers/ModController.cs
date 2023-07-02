@@ -38,24 +38,18 @@ namespace BensModManager.Api.Controllers
         }
 
 
-        [HttpGet("{modName}")]
-        public async Task<ActionResult<IEnumerable<Mod>>> Search(string modName)
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Mod>>> Search(string modName, string modType, bool obsolete)
         {
-            try
+            var result = await _modService.Search(modName, modType, obsolete);
+
+            if (result.Any())
             {
-                var result = await _modService.Search(modName);
-
-                if (result.Any())
-                {
-                    return Ok(result);
-                }
-
-                return NotFound();
+                return Ok(result);
             }
-            catch (Exception)
+            else
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error retrieving data from the database");
+                return NotFound("No results found.");
             }
         }
 
