@@ -12,20 +12,18 @@ builder.Services.AddCors(options =>
     options.AddPolicy("CORSPolicy", builder =>
     {
         builder
-        .AllowAnyMethod()
-        .AllowAnyHeader()
-        .WithOrigins("http://localhost:3000";
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .WithOrigins("http://localhost:3000");
     });
 });
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IModService, ModService>();
 builder.Services.AddDbContext<DataContext>();
-
 builder.Services.AddSwaggerGen(c =>
 {
     c.EnableAnnotations();
@@ -41,6 +39,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Use CORS middleware before authorization and routing
+app.UseCors("CORSPolicy");
 
 app.UseAuthorization();
 
